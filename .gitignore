@@ -1,0 +1,7 @@
+*.db
+*.db-wal
+*.db-shm
+digests/
+brief.md
+__pycache__/
+*.pyc

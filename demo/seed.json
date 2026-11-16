@@ -1,0 +1,79 @@
+{
+ "meta": {
+  "page": {"name": "Looky", "eyebrow": "Canal Arena FC · tudo que está em andamento"}
+ },
+ "cards": {
+  "motion-veredito-placar": {
+   "kind": "motion", "title": "Veredito do Júri: placar do chat numa barra dividida",
+   "detail": "Acusação e defesa entram em lados opostos e o placar do chat enche a barra até o veredito. Prévia já renderizada em 16:9.",
+   "from": "Motion", "when": "@0", "image": "media/08-veredito-do-juri-16x9.gif",
+   "ref": "Construir a peça 08 nos dois formatos e rodar a prova de determinismo"
+  },
+  "motion-pista-youtube": {
+   "kind": "motion", "title": "Pista em Queda: versão 16:9 para o YouTube",
+   "detail": "Mesmo gerador do 9:16, com as pistas em coluna à esquerda e o valor de cada uma à direita.",
+   "from": "Motion", "when": "@-1", "image": "media/03-pista-em-queda-16x9.gif"
+  },
+  "option-ranking": {
+   "kind": "option", "title": "Ranking às cegas: escolha uma direção (A, B ou C)",
+   "detail": "Três jeitos de mostrar a vaga que o convidado escolheu sem saber o próximo nome.",
+   "from": "Motion", "when": "@-2", "image": "media/opcoes-ranking.png",
+   "options": [
+    {"key": "A", "label": "Escada: as vagas sobem uma a uma e o nome encaixa na escolhida"},
+    {"key": "B", "label": "Lista com destaque: o nome deslizando até a vaga certa"},
+    {"key": "C", "label": "Grade: as vagas como cartas viradas, a escolhida vira"}
+   ]
+  },
+  "motion-isso-ou-aquilo": {
+   "kind": "motion", "title": "Isso ou Aquilo: pergunta nova para sexta",
+   "detail": "Dois nomes, uma escolha e a frase de resposta embaixo. Entraria no vídeo de sexta às 12h.",
+   "from": "Motion", "when": "@-3", "image": "media/10-isso-ou-aquilo-16x9.gif"
+  },
+  "trend-final-unica": {
+   "kind": "content", "title": "Trend da semana: final única do torneio",
+   "detail": "Busca em alta desde segunda. Proposta: vídeo de opinião na sexta, formato Isso ou Aquilo, com os dois hosts.",
+   "from": "Pesquisa de trends", "when": "@-1",
+   "ref": "Escrever o roteiro e criar a ficha no acervo"
+  },
+  "github-vad": {
+   "kind": "content", "title": "Testar um detector de voz de código aberto?",
+   "detail": "Biblioteca leve (MIT) para achar o fim de cada fala. Encaixaria no corte automático de silêncios do editor. Teste isolado, sem instalar nada no fluxo atual.",
+   "from": "Olheiro do GitHub", "when": "@-4"
+  },
+  "relatorio-semana": {
+   "kind": "content", "title": "Relatório semanal: pronto para revisar",
+   "detail": "Semana fechada com os números de TikTok e Instagram. Falta o print do painel de LIVE para completar.",
+   "from": "Relatório semanal", "when": "@0"
+  },
+  "grade-semana": {
+   "kind": "content", "title": "Grade da semana: 6 vídeos de seg a sáb",
+   "detail": "Um quadro por dia, todos às 12h.", "from": "Grade", "when": "@-5", "resolved": true
+  },
+  "roteiro-infiltrado": {
+   "kind": "content", "title": "Roteiro: Ache o infiltrado (artilheiros)",
+   "detail": "Cinco nomes, um zagueiro escondido.", "from": "Roteiros", "when": "@-6", "resolved": true
+  }
+ },
+ "decisions": {
+  "trend-final-unica": {"decision": "approve", "note": "Só se der para gravar na quinta", "option": null, "status": "queued", "at": "@0"},
+  "grade-semana": {"decision": "approve", "note": "", "option": null, "status": "done", "result": "Grade publicada no acervo, 6 fichas criadas", "done_at": "@-4"},
+  "roteiro-infiltrado": {"decision": "approve", "note": "", "option": null, "status": "done", "result": "Roteiro final no acervo (V0415)", "done_at": "@-5"}
+ },
+ "streams": {
+  "tres-pistas": {"name": "Três pistas", "area": "Shorts", "state": "live", "owner": "Hosts", "touched": "@-1", "now": "V0412 no ar na segunda.", "next": "Gravar o próximo com três jogadores novos."},
+  "ranking": {"name": "Ranking às cegas", "area": "Shorts", "state": "motion", "owner": "Edição", "touched": "@-2", "now": "Grafismo em escolha (A, B ou C).", "next": "Render da direção aprovada."},
+  "juri": {"name": "Júri do chat", "area": "Shorts", "state": "motion", "owner": "Edição", "touched": "@0", "now": "V0414 em edição.", "next": "Placar do chat no grafismo novo."},
+  "infiltrado": {"name": "Ache o infiltrado", "area": "Shorts", "state": "motion", "owner": "Edição", "touched": "@-3", "now": "V0415 em edição.", "next": "Revisar no Review Room."},
+  "camisa": {"name": "Adivinhe a camisa", "area": "Shorts", "state": "parked", "owner": "Hosts", "touched": "@-40", "now": "Piloto não gravado.", "next": "Decidir se volta para a grade."},
+  "corte-silencio": {"name": "Corte automático de silêncios", "area": "Edição", "state": "motion", "owner": "Automação", "touched": "@-4", "now": "Corta pausas acima de 0,6 s.", "next": "Testar o detector de voz (cartão na fila)."},
+  "review-room": {"name": "Review Room", "area": "Edição", "state": "live", "owner": "Automação", "touched": "@-6", "now": "Revisão com comentários por tempo.", "next": "Atalhos de teclado."},
+  "relatorio": {"name": "Relatório semanal de métricas", "area": "Estratégia", "state": "waiting", "owner": "Produtor", "touched": "@-2", "now": "Semana montada.", "next": "Falta o print do painel de LIVE."},
+  "patrocinio": {"name": "Pacote para patrocinadores", "area": "Estratégia", "state": "motion", "owner": "Produtor", "touched": "@-18", "now": "Deck com números do trimestre.", "next": "Atualizar com a última semana."}
+ },
+ "waiting": {
+  "print-live": {"area": "Estratégia", "item": "Mandar o print do painel de LIVE da semana", "since": "@-2"},
+  "review-v0414": {"area": "Vídeo", "item": "Revisar V0414 no Review Room", "since": "@-3"},
+  "login-trends": {"area": "Shorts", "item": "Entrar no painel de trends no navegador para fechar o levantamento", "since": "@-9"},
+  "camisa-decidir": {"area": "Shorts", "item": "Dizer se Adivinhe a camisa volta para a grade", "since": "@-12"}
+ }
+}

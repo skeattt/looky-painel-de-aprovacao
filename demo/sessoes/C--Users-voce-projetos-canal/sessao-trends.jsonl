@@ -1,0 +1,2 @@
+{"type": "user", "timestamp": "2026-11-15T17:10:00Z", "message": {"role": "user", "content": "Levanta as trends de futebol da semana e vê qual vale vídeo na sexta"}}
+{"type": "assistant", "timestamp": "2026-11-15T17:31:00Z", "message": {"role": "assistant", "content": [{"type": "text", "text": "A final única do torneio é a mais buscada desde segunda. Deixei o cartão na Looky esperando a sua aprovação."}, {"type": "tool_use", "name": "Edit", "input": {"file_path": "C:/Users/voce/projetos/canal/trends-semana.md"}}]}}

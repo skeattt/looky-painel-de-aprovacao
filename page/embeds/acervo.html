@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acervo</title>
+<style>
+/* Página independente: abre sozinha no navegador e também vira uma aba da Looky.
+   Os estilos daqui não vazam para a Looky (shadow root) e os da Looky não entram aqui. */
+:root { --bg: #fbfaf8; --card: #ffffff; --ink: #1d1c1a; --muted: #6f6b63; --line: #e4e1da; --hi: #0f8f7e; --hi-soft: #dff2ee; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #171716; --card: #1f1f1d; --ink: #ecebe7; --muted: #9d998f; --line: #31302d; --hi: #2cc3ab; --hi-soft: #163a34; } }
+:root[data-theme="dark"] { --bg: #171716; --card: #1f1f1d; --ink: #ecebe7; --muted: #9d998f; --line: #31302d; --hi: #2cc3ab; --hi-soft: #163a34; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 ui-sans-serif, system-ui, "Segoe UI", sans-serif; padding: 18px; border-radius: 14px; }
+h1 { font-size: 20px; margin: 0 0 4px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.chips button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+.chips button.on { background: var(--hi); border-color: var(--hi); color: #fff; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--line); font-size: 14px; }
+th { border-top: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+tr[data-id] { cursor: pointer; }
+tr[data-id]:hover td { background: var(--hi-soft); }
+.st { font-size: 12px; font-weight: 600; }
+.detail { margin-top: 14px; background: var(--card); border: 1px solid var(--hi); border-radius: 12px; padding: 14px 16px; }
+.detail h2 { margin: 0 0 6px; font-size: 17px; }
+.detail a { color: var(--hi); }
+@media (max-width: 640px) { .hide-sm { display: none; } }
+</style>
+</head>
+<body>
+<h1>Acervo de vídeos</h1>
+<div class="sub">Página própria do acervo, embutida como aba. Clique numa linha: o endereço vira <code>#acervo/ID</code> e pode ser compartilhado.</div>
+<div class="chips" id="chips"></div>
+<table>
+  <thead><tr><th>ID</th><th>Vídeo</th><th class="hide-sm">Quadro</th><th>Status</th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+<div id="detail"></div>
+<script>
+const VIDEOS = [
+  { id: "V0412", title: "Quem é o craque pelas 3 pistas?", show: "Três pistas", status: "No ar", day: "seg", piece: "03 Pista em Queda" },
+  { id: "V0413", title: "Ranking às cegas: camisas 10", show: "Ranking às cegas", status: "No ar", day: "ter", piece: "05 Escada às Cegas" },
+  { id: "V0414", title: "O pênalti do clássico: o júri decide", show: "Júri do chat", status: "Em edição", day: "qua", piece: "08 Veredito do Júri" },
+  { id: "V0415", title: "Ache o infiltrado na lista de artilheiros", show: "Infiltrado", status: "Em edição", day: "qui", piece: "09 Ache o Infiltrado" },
+  { id: "V0416", title: "Quem bate o pênalti decisivo?", show: "Isso ou aquilo", status: "Roteiro", day: "sex", piece: "10 Isso ou Aquilo" },
+  { id: "V0417", title: "10 respostas em 60 segundos", show: "10 em 60", status: "Roteiro", day: "sáb", piece: "06 Relógio 10 em 60" },
+];
+const STATUSES = ["Todos", "No ar", "Em edição", "Roteiro"];
+let filter = "Todos";
+
+function render() {
+  const open = location.hash.replace(/^#/, "");
+  document.getElementById("chips").innerHTML = STATUSES.map(s =>
+    '<button class="' + (s === filter ? "on" : "") + '" data-f="' + s + '">' + s + "</button>").join("");
+  document.getElementById("rows").innerHTML = VIDEOS.filter(v => filter === "Todos" || v.status === filter).map(v =>
+    '<tr data-id="' + v.id + '"><td>' + v.id + "</td><td>" + v.title + '</td><td class="hide-sm">' + v.show +
+    '</td><td class="st">' + v.status + "</td></tr>").join("");
+  const v = VIDEOS.find(x => x.id === open);
+  document.getElementById("detail").innerHTML = v ? '<div class="detail"><h2>' + v.id + " · " + v.title + "</h2>" +
+    "Quadro: " + v.show + " · posta " + v.day + " 12h<br>Grafismo: " + v.piece +
+    '<br><a href="#design">Ver as ideias de motion na fila</a></div>' : "";
+}
+document.getElementById("chips").addEventListener("click", e => {
+  const b = e.target.closest("button[data-f]");
+  if (b) { filter = b.dataset.f; render(); }
+});
+document.getElementById("rows").addEventListener("click", e => {
+  const tr = e.target.closest("tr[data-id]");
+  if (tr) location.hash = tr.dataset.id;
+});
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
